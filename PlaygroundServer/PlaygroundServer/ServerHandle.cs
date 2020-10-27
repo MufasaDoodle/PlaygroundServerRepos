@@ -17,5 +17,12 @@ namespace PlaygroundServer
                 Console.WriteLine($"Player \"{username}\" (ID: {fromClient}) has assumed the wrong client ID ({clientIDCheck})");
             }
         }
+
+        public static void UDPTestReceived(int fromClient, Packet packet)
+        {
+            string msg = packet.ReadString();
+
+            Console.WriteLine($"Received packet via UDP. Contains message: {msg}");
+        }
     }
 }

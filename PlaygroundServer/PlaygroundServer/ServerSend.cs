@@ -72,13 +72,38 @@ namespace PlaygroundServer
             }
         }
 
-        public static void UDPTest(int toClient)
+        public static void SpawnPlayer(int toClient, Player player)
         {
-            using (Packet packet = new Packet((int)ServerPackets.udpTest))
+            using(Packet packet = new Packet((int)ServerPackets.spawnPlayer))
             {
-                packet.Write("A test packet for UDP");
+                packet.Write(player.id);
+                packet.Write(player.username);
+                packet.Write(player.position);
+                packet.Write(player.rotation);
 
-                SendUDPData(toClient, packet);
+                SendTCPData(toClient, packet);
+            }
+        }
+
+        public static void PlayerPosition(Player player)
+        {
+            using (Packet packet = new Packet((int)ServerPackets.playerPosition))
+            {
+                packet.Write(player.id);
+                packet.Write(player.position);
+
+                SendUDPDataToAll(packet);
+            }
+        }
+
+        public static void PlayerRotation(Player player)
+        {
+            using (Packet packet = new Packet((int)ServerPackets.playerRotation))
+            {
+                packet.Write(player.id);
+                packet.Write(player.rotation);
+
+                SendUDPDataToAll(player.id, packet);
             }
         }
 

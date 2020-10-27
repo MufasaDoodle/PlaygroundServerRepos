@@ -6,7 +6,11 @@ namespace PlaygroundServer
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.Title = "Server";
+
+            Server.Start(50, 26950);
+
+            Console.ReadKey();
         }
     }
 }
